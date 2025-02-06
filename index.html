@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNAM Lookup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Caller Name Lookup</h1>
+        <input type="text" id="phoneNumber" placeholder="Enter phone number">
+        <button onclick="lookupNumber()">Search</button>
+        <p id="result"></p>
+    </div>
+    
+    <script>
+        async function lookupNumber() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber) {
+                alert('Please enter a phone number');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`https://your-render-backend-url.com/lookup?number=${phoneNumber}`);
+                const data = await response.json();
+                document.getElementById('result').textContent = data.callerName || 'No name found';
+            } catch (error) {
+                document.getElementById('result').textContent = 'Error fetching data';
+            }
+        }
+    </script>
+</body>
+</html>
